@@ -1,13 +1,10 @@
-import React from 'react';
-import logo from './logo.svg';
+import styled from 'styled-components/macro';
 import './App.css';
 
+const Container = styled.div``;
+
 function App() {
-  return (
-    <div className="App">
-     
-    </div>
-  );
+  return <Container></Container>;
 }
 
 export default App;
