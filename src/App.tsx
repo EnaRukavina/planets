@@ -4,8 +4,32 @@ import { Header } from './components/Header';
 import { theme } from './theme';
 import stars from './assets/images/background-stars.svg';
 import { Route, Routes } from 'react-router';
-import { Earth } from './components/planets/Earth';
-import { Mercury } from './components/planets/Mercury';
+import data from './data.json';
+import { Planet } from './components/Planets/PlanetContainer';
+import { useState } from 'react';
+import { Tab } from './helpers';
+
+function App() {
+  const [tab, setTab] = useState<Tab>('overview');
+  return (
+    <ThemeProvider theme={theme}>
+      <AppContainer>
+        <Header setTab={setTab} />
+        <Routes>
+          {data.map((x, i) => (
+            <Route
+              key={x.name}
+              path={`/${x.name}`}
+              element={<Planet data={data[i]} tab={tab} setTab={setTab} />}
+            />
+          ))}
+        </Routes>
+      </AppContainer>
+    </ThemeProvider>
+  );
+}
+
+export default App;
 
 const AppContainer = styled.div`
   height: 100vh;
@@ -17,19 +41,3 @@ const AppContainer = styled.div`
   display: flex;
   flex-direction: column;
 `;
-
-function App() {
-  return (
-    <ThemeProvider theme={theme}>
-      <AppContainer>
-        <Header />
-        <Routes>
-          <Route path='/earth' element={<Earth />} />
-          <Route path='/mercury' element={<Mercury />} />
-        </Routes>
-      </AppContainer>
-    </ThemeProvider>
-  );
-}
-
-export default App;

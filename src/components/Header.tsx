@@ -1,23 +1,20 @@
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components/macro';
+import { planets } from '../helpers';
 
-export const Header = () => {
-  const planets = [
-    'Mercury',
-    'Venus',
-    'Earth',
-    'Mars',
-    'Jupiter',
-    'Saturn',
-    'Uranus',
-    'Neptune',
-  ];
+export const Header = ({ setTab }: any) => {
   return (
     <NavBar>
       <h2>The Planets</h2>
       <NavLinks>
         {planets.map(planet => (
-          <StyledNavLink to={`/${planet}`}>{planet}</StyledNavLink>
+          <StyledNavLink
+            key={planet}
+            to={`/${planet}`}
+            onClick={() => setTab('overview')}
+          >
+            {planet}
+          </StyledNavLink>
         ))}
       </NavLinks>
     </NavBar>

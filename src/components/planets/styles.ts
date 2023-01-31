@@ -1,4 +1,3 @@
-import { NavLink } from 'react-router-dom';
 import styled from 'styled-components/macro';
 
 export const PlanetContainer = styled.div`
@@ -25,25 +24,30 @@ export const PlanetImageContainer = styled.div`
   margin-top: 103px;
   margin-left: 170px;
 `;
-export const PlanetImage = styled.img`
-  width: 290px;
-  height: 290px;
+export const PlanetImage = styled.img``;
+export const GeologyImageContainer = styled.div`
+  position: absolute;
 `;
 export const PlanetSummary = styled.p`
-  margin-bottom: 24px;
+  min-height: 150px;
 `;
-export const PlanetSource = styled.div``;
-export const PlanetNavBar = styled.div`
+export const PlanetSource = styled.div`
+  margin: 20px 0 23px;
+  opacity: 0.5;
   display: flex;
-  flex-direction: column;
-  gap: 16px;
+  align-items: center;
+  a {
+    font-weight: bold;
+    margin: 0 6px;
+    color: ${props => props.theme.colors.white};
+  }
 `;
-export const PlanetNavLink = styled(NavLink)<{ isActive?: boolean }>`
-  background-color: ${props =>
-    props.isActive ? props.theme.colors.lightBlue : ''};
+
+export const PlanetNavLink = styled.a<{ isActive?: boolean; color?: string }>`
   color: ${props => props.theme.colors.white};
   border: 1px solid
     ${props => (props.isActive ? 'transparent' : 'rgba(255, 255, 255, 0.2)')};
+  background-color: ${props => props.isActive && props.color};
   text-decoration: none;
   text-transform: uppercase;
   font-weight: 700;
@@ -52,14 +56,24 @@ export const PlanetNavLink = styled(NavLink)<{ isActive?: boolean }>`
   letter-spacing: 2.6px;
   padding: 12px 28px;
   transition: ease-out background-color 0.1s;
-  :hover {
-    background-color: ${props => props.theme.colors.lightBlue};
-  }
+  cursor: pointer;
   span {
     margin-right: 28px;
     opacity: 0.5;
   }
+  :hover {
+    background-color: ${props => props.color};
+  }
 `;
+
+export const PlanetNavBar = styled.div<{ color?: string; isActive?: boolean }>`
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: auto;
+  margin-bottom: 90px;
+`;
+
 export const PlanetFactsContainer = styled.div`
   display: grid;
   margin-top: auto;
