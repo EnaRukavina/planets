@@ -1,8 +1,9 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import { device, getColor, planets } from '../helpers';
 
 export const Header = ({ setTab }: any) => {
+  const pathname = useLocation()?.pathname;
   return (
     <NavBar>
       <NavTitle>The Planets</NavTitle>
@@ -13,6 +14,8 @@ export const Header = ({ setTab }: any) => {
             to={`/${planet}`}
             onClick={() => setTab('overview')}
             color={getColor(planet)}
+            style={({ isActive }) => (isActive ? { color: 'red' } : undefined)}
+            isActive={`/${planet}` === pathname}
           >
             {planet}
           </StyledNavLink>
@@ -51,7 +54,7 @@ const NavLinks = styled.div`
     margin-top: 30px;
   }
 `;
-const StyledNavLink = styled(NavLink)`
+const StyledNavLink = styled(NavLink)<{ isActive: boolean }>`
   color: ${props => props.theme.colors.white};
   text-decoration: none;
   border-bottom: 2px solid transparent;
@@ -63,11 +66,11 @@ const StyledNavLink = styled(NavLink)`
     content: '';
     display: block;
     height: 2px;
-    left: 50%;
     position: absolute;
     background: ${props => props.color};
     transition: width 0.3s ease 0s, left 0.3s ease 0s;
-    width: 0;
+    width: ${props => (props.isActive ? '100%' : 0)};
+    left: ${props => (props.isActive ? 0 : '50%')};
   }
   :hover:after {
     width: 100%;
