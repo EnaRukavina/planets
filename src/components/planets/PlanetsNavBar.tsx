@@ -12,13 +12,14 @@ export const PlanetsNavBar = ({
   tab,
   planetName,
 }: IPlanetsNavBarProps) => {
+  const planetNavBarItems = [
+    { num: '01', tab: 'overview', title: 'overview' },
+    { num: '02', tab: 'structure', title: 'Internal structure' },
+    { num: '03', tab: 'geology', title: 'surface geology' },
+  ];
   return (
     <PlanetNavBar>
-      {[
-        { num: '01', tab: 'overview', title: 'overview' },
-        { num: '02', tab: 'structure', title: 'Internal structure' },
-        { num: '03', tab: 'geology', title: 'surface geology' },
-      ].map(item => (
+      {planetNavBarItems.map(item => (
         <PlanetNavLink
           key={item.num}
           onClick={() => setTab(item.tab)}

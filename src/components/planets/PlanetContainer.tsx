@@ -1,4 +1,5 @@
 import { images } from '../../assets/images/index';
+import { getColor } from '../../helpers';
 import { PlanetsNavBar } from './PlanetsNavBar';
 import {
   GeologyImageContainer,
@@ -16,31 +17,33 @@ import {
 
 export const Planet = ({ data, tab, setTab }: any) => {
   return (
-    <PlanetContainer>
+    <PlanetContainer color={getColor(data.name)}>
       <PlanetTop>
         <PlanetImageContainer>
           {tab === 'geology' ? (
-            <div>
+            <>
               <PlanetImage src={images[data.images['structure']]} />
               <GeologyImageContainer>
                 <img src={images[data.images[tab]]} />
               </GeologyImageContainer>
-            </div>
+            </>
           ) : (
             <PlanetImage src={images[data.images[tab]]} />
           )}
         </PlanetImageContainer>
         <PlanetInfoContainer>
-          <PlanetName>{data.name}</PlanetName>
           <div>
-            <PlanetSummary>{data[tab].content}</PlanetSummary>
-            <PlanetSource>
-              <span>Source:</span>
-              <a href={data[tab].source} target='_blank' rel='noreferrer'>
-                Wikipedia
-              </a>
-              <img src={images.iconSource} />
-            </PlanetSource>
+            <PlanetName>{data.name}</PlanetName>
+            <div>
+              <PlanetSummary>{data[tab].content}</PlanetSummary>
+              <PlanetSource>
+                <span>Source:</span>
+                <a href={data[tab].source} target='_blank' rel='noreferrer'>
+                  Wikipedia
+                </a>
+                <img src={images.iconSource} />
+              </PlanetSource>
+            </div>
           </div>
           <PlanetsNavBar setTab={setTab} tab={tab} planetName={data.name} />
         </PlanetInfoContainer>
