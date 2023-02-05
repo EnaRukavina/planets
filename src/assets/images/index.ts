@@ -23,6 +23,8 @@ import planetNeptune from './planet-neptune.svg';
 import planetNeptuneInternal from './planet-neptune-internal.svg';
 import planetNeptuneGeology from './geology-neptune.png';
 import iconSource from './icon-source.svg';
+import iconHamburger from './icon-hamburger.svg';
+import iconChevron from './icon-chevron.svg';
 
 export const images: any = {
   planetMercury,
@@ -50,4 +52,6 @@ export const images: any = {
   planetNeptuneInternal,
   planetNeptuneGeology,
   iconSource,
+  iconHamburger,
+  iconChevron,
 };

@@ -45,7 +45,7 @@ const size = {
   tablet: '768px',
   laptop: '1024px',
   laptopL: '1440px',
-  dekstop: '2560px',
+  desktop: '2560px',
 };
 
 export const device = {
@@ -55,5 +55,9 @@ export const device = {
   tablet: `(max-width: ${size.tablet})`,
   laptop: `(max-width: ${size.laptop})`,
   laptopL: `(max-width: ${size.laptopL})`,
-  desktop: `(max-width: ${size.dekstop})`,
+  desktop: `(max-width: ${size.desktop})`,
+};
+
+export const getMobileMenuCircleColor = (planet: Planet) => {
+  return theme.colors[planet];
 };

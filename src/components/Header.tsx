@@ -1,20 +1,56 @@
+import { useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import styled from 'styled-components/macro';
-import { device, getColor, planets } from '../helpers';
+import { images } from '../assets/images';
+import {
+  device,
+  getColor,
+  getMobileMenuCircleColor,
+  planets,
+} from '../helpers';
 
 export const Header = ({ setTab }: any) => {
   const pathname = useLocation()?.pathname;
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const handleMenuItemClick = () => {
+    setTab('overview');
+    isMenuOpen && setIsMenuOpen(false);
+  };
   return (
     <NavBar>
       <NavTitle>The Planets</NavTitle>
+      <HamburgerMenu
+        onClick={() => setIsMenuOpen(!isMenuOpen)}
+        isMenuOpen={isMenuOpen}
+      >
+        <img src={images.iconHamburger} />
+      </HamburgerMenu>
+      {isMenuOpen && (
+        <Menu>
+          <NavLinks>
+            {planets.map((planet) => (
+              <MobileNavMenuItem
+                color={getMobileMenuCircleColor(planet)}
+                key={planet}
+                onClick={handleMenuItemClick}
+                to={`/${planet}`}
+              >
+                <div className='circle' />
+                <p>{planet}</p>
+                <img src={images.iconChevron} />
+              </MobileNavMenuItem>
+            ))}
+          </NavLinks>
+        </Menu>
+      )}
       <NavLinks>
-        {planets.map(planet => (
+        {planets.map((planet) => (
           <StyledNavLink
             key={planet}
             to={`/${planet}`}
             onClick={() => setTab('overview')}
             color={getColor(planet)}
-            style={({ isActive }) => (isActive ? { color: 'red' } : undefined)}
             isActive={`/${planet}` === pathname}
           >
             {planet}
@@ -36,6 +72,10 @@ const NavBar = styled.div`
     flex-direction: column;
     padding: 30px;
   }
+  @media ${device.tablet} {
+    padding: 16px 24px;
+    flex-direction: row;
+  }
 `;
 const NavTitle = styled.h2`
   @media ${device.laptop} {
@@ -53,9 +93,12 @@ const NavLinks = styled.div`
   @media ${device.laptop} {
     margin-top: 30px;
   }
+  @media ${device.tablet} {
+    display: none;
+  }
 `;
 const StyledNavLink = styled(NavLink)<{ isActive: boolean }>`
-  color: ${props => props.theme.colors.white};
+  color: ${(props) => props.theme.colors.white};
   text-decoration: none;
   border-bottom: 2px solid transparent;
   position: relative;
@@ -67,13 +110,85 @@ const StyledNavLink = styled(NavLink)<{ isActive: boolean }>`
     display: block;
     height: 2px;
     position: absolute;
-    background: ${props => props.color};
+    background: ${(props) => props.color};
     transition: width 0.3s ease 0s, left 0.3s ease 0s;
-    width: ${props => (props.isActive ? '100%' : 0)};
-    left: ${props => (props.isActive ? 0 : '50%')};
+    width: ${(props) => (props.isActive ? '100%' : 0)};
+    left: ${(props) => (props.isActive ? 0 : '50%')};
+    @media ${device.tablet} {
+      display: none;
+    }
   }
   :hover:after {
     width: 100%;
     left: 0;
+  }
+`;
+
+const HamburgerMenu = styled.button<{ isMenuOpen: boolean }>`
+  display: none;
+  @media ${device.tablet} {
+    all: unset;
+    display: flex;
+    padding: 5px;
+    opacity: ${(props) => (props.isMenuOpen ? 0.3 : 1)};
+  }
+`;
+
+const MobileNavMenuItem = styled(NavLink)<{ color: string }>`
+  display: flex;
+  width: 100%;
+  padding: 20px 0;
+  align-items: center;
+  text-decoration: none;
+  color: white;
+  font-size: 15px;
+  :not(:last-of-type) {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  .circle {
+    background-color: ${(props) => props.color};
+    height: 20px;
+    width: 20px;
+    border-radius: 100%;
+  }
+  p {
+    flex: 1;
+    margin-left: 25px;
+  }
+`;
+const Menu = styled.div`
+  display: none;
+  @media ${device.tablet} {
+    display: block;
+    padding: 24px;
+    background-color: ${(props) => props.theme.colors.black};
+    position: absolute;
+    height: calc(100% - 61px);
+    top: 61px;
+    width: 100%;
+    left: 0;
+    z-index: 10;
+    overflow: auto;
+    animation-name: anim-open;
+    animation-duration: 0.4s;
+    ::-webkit-scrollbar {
+      display: none;
+    }
+    @keyframes anim-open {
+      0% {
+        height: 0;
+      }
+      100% {
+        height: calc(100% - 61px);
+      }
+    }
+
+    ${NavLinks} {
+      display: flex;
+      flex-direction: column;
+      opacity: 1;
+      gap: 0;
+      margin-top: 0;
+    }
   }
 `;
