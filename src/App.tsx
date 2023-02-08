@@ -13,6 +13,7 @@ import { MobileContext } from './Context';
 function App() {
   const [tab, setTab] = useState<Tab>('overview');
   const [width, setWidth] = useState<number>(window.innerWidth);
+
   function handleWindowSizeChange() {
     setWidth(window.innerWidth);
   }

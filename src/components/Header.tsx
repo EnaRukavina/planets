@@ -19,7 +19,7 @@ export const Header = ({ setTab }: any) => {
   };
   return (
     <NavBar>
-      <NavTitle>The Planets</NavTitle>
+      <NavTitle to='/Mercury'>The Planets</NavTitle>
       <HamburgerMenu
         onClick={() => setIsMenuOpen(!isMenuOpen)}
         isMenuOpen={isMenuOpen}
@@ -77,7 +77,15 @@ const NavBar = styled.div`
     flex-direction: row;
   }
 `;
-const NavTitle = styled.h2`
+const NavTitle = styled(NavLink)`
+  color: white;
+  font-size: 40px;
+  text-decoration: none;
+  font-family: 'Antonio', sans-serif;
+  font-size: 40px;
+  line-height: 52px;
+  letter-spacing: -1.5px;
+  font-weight: 500;
   @media ${device.laptop} {
     font-size: 28px;
     line-height: 1;
