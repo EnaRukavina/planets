@@ -7,9 +7,14 @@ import {
   getColor,
   getMobileMenuCircleColor,
   planets,
+  Tab,
 } from '../helpers';
 
-export const Header = ({ setTab }: any) => {
+interface HeaderProps {
+  setTab: (tab: Tab) => void;
+}
+
+export const Header = ({ setTab }: HeaderProps) => {
   const pathname = useLocation()?.pathname;
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -19,7 +24,9 @@ export const Header = ({ setTab }: any) => {
   };
   return (
     <NavBar>
-      <NavTitle to='/Mercury'>The Planets</NavTitle>
+      <NavTitle to='/Mercury' onClick={() => setTab('overview')}>
+        The Planets
+      </NavTitle>
       <HamburgerMenu
         onClick={() => setIsMenuOpen(!isMenuOpen)}
         isMenuOpen={isMenuOpen}
